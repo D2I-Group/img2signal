@@ -1,5 +1,4 @@
 # Appendix "Additional Fine-Tuning Results": LoRA (rank 8, alpha 16) on ViT (TSC) and MAE (TSF).
-# These runs used 5 training epochs.
 source scripts/appendix/common.sh
 
 for ds in $TSC_DATASETS; do

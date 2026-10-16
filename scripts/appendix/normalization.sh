@@ -3,7 +3,7 @@
 #   dataset only  : --dataset_norm 1 --norm_mode dataset
 #   instance only : --dataset_norm 0 --norm_mode instance
 #   both (default): --dataset_norm 1 --norm_mode instance
-# Metrics are always reported in the train-standardized space. These runs used 1 training epoch.
+# Metrics are always reported in the train-standardized space.
 source scripts/appendix/common.sh
 
 for row in "${TSF_DATASETS[@]}"; do

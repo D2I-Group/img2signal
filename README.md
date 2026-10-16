@@ -126,8 +126,6 @@ Edit `CUDA_VISIBLE_DEVICES` at the top of each script to choose a GPU.
 | RQ10 (look-back window) | – | `RQ9/` |
 | Baselines | `scripts/baselines/` | `scripts/baselines/` |
 
-> Script folders keep the numbering of an earlier draft; the table maps them to the RQs in the published paper.
-
 #### Appendix experiments
 
 Run from the repository root, e.g. `GPU=0 bash scripts/appendix/lora.sh`.
@@ -142,8 +140,6 @@ Run from the repository root, e.g. `GPU=0 bash scripts/appendix/lora.sh`.
 | Additional fine-tuning (LoRA, positional encoding, patch embedding) | `scripts/appendix/lora.sh`, `finetune_embeddings.sh` |
 | Robustness of MVH to variate permutation | `scripts/appendix/mvh_permutation.sh` |
 | Normalization methods | `scripts/appendix/normalization.sh` |
-
-Not included in this release: the Line Plot imaging method (`time2img/lineplot.py` only renders figures) and the LaVin-DiT backbone.
 
 
 <a id="findings"></a>

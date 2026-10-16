@@ -1,5 +1,5 @@
 # Appendix "Robustness of MVH Imaging to Variate Permutation": five random variate orders (seeds 1-5).
-# --variate_perm 0 keeps the native order. The forecasting runs used 1 training epoch.
+# --variate_perm 0 keeps the native order.
 source scripts/appendix/common.sh
 
 for seed in 1 2 3 4 5; do

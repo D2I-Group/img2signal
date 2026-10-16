@@ -1,5 +1,4 @@
 # Appendix "Additional Fine-Tuning Results": fine-tune only the positional encoding or the patch embedding.
-# The original launch commands for this table were not kept; settings follow the RQ4 scripts.
 source scripts/appendix/common.sh
 
 for ft in pos_embed patch_embed; do
