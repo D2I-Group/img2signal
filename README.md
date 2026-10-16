@@ -84,15 +84,18 @@ dataset/
 
 ### 3. Pretrained checkpoints
 
-Put the checkpoints under `./ckpt/`:
+The first three checkpoints are stored under `./ckpt/`; the others are cached by torchvision, timm, or Hugging Face.
 
-| Backbone | File | Source |
+| Backbone | Checkpoint | Source |
 |---|---|---|
 | `vit_base` | `mae_pretrain_vit_base.pth` | [MAE](https://github.com/facebookresearch/mae), downloaded automatically |
 | `mae_base` | `mae_visualize_vit_base.pth` | [MAE](https://github.com/facebookresearch/mae), downloaded automatically |
 | `simmim` | `simmim_pretrain__swin_base__img192_window6__800ep.pth` | [SimMIM](https://github.com/microsoft/SimMIM), download manually |
-| `swin_tiny` | – | torchvision, downloaded automatically |
-| `dinov2`, `mlcd`, `qwenvl`, `sam` (Appendix) | – | timm / Hugging Face, downloaded automatically |
+| `swin_tiny` | `Swin_T_Weights.DEFAULT` | torchvision, downloaded automatically |
+| `dinov2` (Appendix) | `vit_base_patch14_dinov2.lvd142m` | timm, downloaded automatically |
+| `sam` (Appendix) | `samvit_base_patch16.sa1b` | timm, downloaded automatically |
+| `mlcd` (Appendix) | `DeepGlint-AI/mlcd-vit-base-patch32-224` | Hugging Face, downloaded automatically |
+| `qwenvl` (Appendix) | `Qwen/Qwen2-VL-2B-Instruct` (vision encoder) | Hugging Face, downloaded automatically |
 
 For the encoder/decoder ablation (RQ8), create the split checkpoints once:
 
