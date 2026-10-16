@@ -1,0 +1,41 @@
+[project]
+name = "img2signal"
+version = "1.0.0"
+description = "From Images to Signals: Are Image-Pretrained Vision Models Useful for Time Series Analysis? (TMLR 2026)"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10,<3.13"
+dependencies = [
+    "torch==2.6.0",
+    "torchvision==0.21.0",
+    "timm",
+    "transformers",
+    "einops",
+    "numpy",
+    "pandas",
+    "scipy",
+    "scikit-learn",
+    "sktime",
+    "pyts",
+    "PyWavelets",
+    "matplotlib",
+    "pillow",
+    "tqdm",
+    "sympy",
+    "reformer-pytorch",
+    "requests",
+    "gdown",
+    "patool",
+]
+
+[tool.uv]
+package = false
+
+[tool.uv.sources]
+torch = { index = "pytorch-cu124" }
+torchvision = { index = "pytorch-cu124" }
+
+[[tool.uv.index]]
+name = "pytorch-cu124"
+url = "https://download.pytorch.org/whl/cu124"
+explicit = true

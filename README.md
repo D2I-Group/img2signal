@@ -57,11 +57,16 @@ The study is organized around ten research questions (RQs) in three groups:
 
 ### 1. Environment
 
+We use [uv](https://docs.astral.sh/uv/) to manage the environment (PyTorch 2.6.0 with CUDA 12.4):
+
 ```bash
 git clone https://github.com/D2I-Group/img2signal.git
 cd img2signal
-pip install -r requirements.txt
+uv sync                      # creates .venv from pyproject.toml / uv.lock
+source .venv/bin/activate    # or prefix commands with `uv run`
 ```
+
+Alternatively, `pip install -r requirements.txt`.
 
 Experiments in the paper used PyTorch 2.6.0 and CUDA 12.4 on NVIDIA RTX 6000 Ada GPUs.
 
