@@ -1,15 +1,4 @@
 #!/usr/bin/env python3
-"""Measure peak memory of ONE time-series-to-image conversion cell (called by imaging_memory.py).
-
-Run in a FRESH subprocess per cell. Uses the paper repo's own conversion code:
-  * GAF/RP/STFT/Wavelet/Filterbank: time2img plotters, exactly as invoked by
-    time2img/imagedata.py:image_transform_forecasting (CPU, numpy).
-  * UVH: VisionReg/visionReg.py:UTSRegression._time2img (torch; GPU in the
-    real pipeline, measured here on the requested device via a shim object
-    carrying pad_left/periodicity/resize, calling the unbound repo method).
-
-Prints one JSON dict to stdout.
-"""
 import argparse, gc, json, os, resource, sys, time, tracemalloc
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -18,16 +7,12 @@ os.chdir(REPO)
 
 import numpy as np
 
-
 def rss_mb():
     import psutil
     return psutil.Process().memory_info().rss / 2**20
 
-
 def maxrss_mb():
-    # linux: ru_maxrss in KiB
     return resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1024.0
-
 
 def nbytes_of(obj):
     import torch
@@ -43,11 +28,10 @@ def nbytes_of(obj):
     a = np.asarray(obj)
     return a.nbytes
 
-
 def build_single(method, T, wavelet_scales=None):
     """One univariate series of length T -> conversion closure (repo plotters)."""
     from time2img import gaf, rp, spectrogram as sp
-    x = np.random.randn(T).astype(np.float64)  # dataset yields float64 (StandardScaler)
+    x = np.random.randn(T).astype(np.float64)
     if method == "GAF":
         p = gaf.GAF_plotter()
         conv = lambda a: p.plot(a)
@@ -63,16 +47,15 @@ def build_single(method, T, wavelet_scales=None):
             sc = np.arange(1, wavelet_scales + 1)
             conv = lambda a: p.plot(a, scales=sc)
         else:
-            conv = lambda a: p.plot(a)  # repo default: scales=np.arange(1, 400)
+            conv = lambda a: p.plot(a)
     elif method == "Filterbank":
         p = sp.Filterbank_Plotter()
         conv = lambda a: p.plot(a)
     else:
         raise ValueError(method)
     warm = np.random.randn(96).astype(np.float64)
-    conv(warm)  # warm-up: imports/JIT/caches before baseline
+    conv(warm)
     return x, conv, "float64 (numpy input, as produced by the repo's StandardScaler data loader)"
-
 
 def build_uvh(T, d, B, device):
     """Repo's UTSRegression._time2img via shim (torch), input (B, T, d) float32."""
@@ -85,16 +68,15 @@ def build_uvh(T, d, B, device):
         pass
 
     shim = Shim()
-    shim.periodicity = 24  # ETTh1 default (scripts/forecasting/*: periodicity=24)
+    shim.periodicity = 24
     shim.pad_left = (24 - T % 24) % 24
-    shim.resize = safe_resize((224, 224), interpolation=Image.BILINEAR)  # mae_base 224, default bilinear
+    shim.resize = safe_resize((224, 224), interpolation=Image.BILINEAR)
 
     x = torch.randn(B, T, d, dtype=torch.float32, device=device)
     conv = lambda a: UTSRegression._time2img(shim, a)
     warm = torch.randn(1, 48, 1, dtype=torch.float32, device=device)
     conv(warm)
     return x, conv, "float32 (torch model input)"
-
 
 def build_batch_gaf(T, d, B):
     """Batch conversion exactly as the dataset builder does it:
@@ -109,9 +91,8 @@ def build_batch_gaf(T, d, B):
     def conv(_):
         return [image_transform_forecasting(s, NS) for s in samples]
 
-    image_transform_forecasting(np.random.randn(96, 2).astype(np.float64), NS)  # warm-up
+    image_transform_forecasting(np.random.randn(96, 2).astype(np.float64), NS)
     return samples, conv, "float64 numpy in -> float32 torch tensors stored (repo behavior)"
-
 
 def main():
     ap = argparse.ArgumentParser()
@@ -180,7 +161,6 @@ def main():
         pass
 
     print(json.dumps(res))
-
 
 if __name__ == "__main__":
     main()

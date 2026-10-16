@@ -149,7 +149,6 @@ if __name__ == '__main__':
     parser.add_argument('--mim_ckpt', type=str, default='simmim_pretrain__swin_base__img192_window6__800ep.pth',
                         help='checkpoint file name')
     
-    ### RQ6: temporal perturbations at test time
     parser.add_argument('--shuffle_flag', type=str, default=None, help='sf_all, sf_half, ex_half, mask')
 
     parser.add_argument('--head_tokens', type=str, default='all', help='tokens read by the classification head: all | cls | mean')
@@ -157,12 +156,11 @@ if __name__ == '__main__':
 
     parser.add_argument('--norm_mode', type=str, default='instance', help='normalization for MAE forecasting: instance | dataset')
     parser.add_argument('--dataset_norm', type=int, default=1,
-                        help='1: standardize model input with the train-split scaler; 0: feed raw values (metrics stay in the standardized space)')
+                        help='1: standardize input, 0: raw input')
 
     parser.add_argument('--lora_r', type=int, default=8, help='LoRA rank')
     parser.add_argument('--lora_alpha', type=int, default=16, help='LoRA alpha')
 
-    ### RQ8: keep only the pretrained encoder (enc) or decoder (dec)
     parser.add_argument('--sep_enc_dec', type=str, default=None, help='enc, dec')
 
 

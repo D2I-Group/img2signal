@@ -1,13 +1,4 @@
 #!/usr/bin/env python3
-"""
-Computational cost profiling (RQ7, Appendix).
-
-Measures, per configuration: imaging-stage wall time and peak host memory, model peak GPU
-memory (forward and forward+backward), inference latency per sample, and parameter count.
-Sweeps look-back length T, variate count d, and backbone.
-
-    python tools/profile_cost.py      # writes results/cost_profile.json
-"""
 import os, sys, time, json, gc
 import numpy as np
 import torch
@@ -24,8 +15,6 @@ def cuda_reset():
 
 def mb(x): return round(x / 1024**2, 1)
 
-
-# ---------- 1. imaging stage: cost of turning series into images ----------
 def profile_imaging():
     from time2img import gaf, rp, spectrogram as sp, heatmap as hm
     rows = []
@@ -35,13 +24,10 @@ def profile_imaging():
         "Filterbank": sp.Filterbank_Plotter(), "UVH": hm.AdaptiveHeatmap_Plotter(),
     }
     def call(p, name, x):
-        # Wavelet takes a torch tensor and an explicit scale range;
-        # the other plotters take a bare ndarray.
         if name == "Wavelet":
             return p.plot(torch.from_numpy(x), scales=np.arange(1, 64))
         return p.plot(x)
 
-    # warm up every plotter once so the first timed entry is not an import/JIT artifact
     warm = np.random.randn(336).astype(np.float32)
     for name, p in plotters.items():
         try: call(p, name, warm)
@@ -64,23 +50,18 @@ def profile_imaging():
                 rows.append(dict(stage="imaging", method=name, T=T, error=type(e).__name__))
     return rows
 
-
-# ---------- 2. per-variate scaling: what a multivariate batch really costs ----------
 def profile_variate_scaling():
     """Under variate-independence a batch of B samples becomes B*d images."""
     rows = []
     for d, ds in ((7, "ETTh1"), (21, "Weather"), (321, "Electricity"), (862, "Traffic")):
         for B in (8, 32):
             n_img = B * d
-            # one 224x224x3 float32 image
             per_img_MB = 224 * 224 * 3 * 4 / 1024**2
             rows.append(dict(stage="variate_scaling", dataset=ds, d=d, batch=B,
                              images_per_batch=n_img,
                              image_tensor_MB=round(n_img * per_img_MB, 1)))
     return rows
 
-
-# ---------- 3. backbone cost: params, peak memory, latency ----------
 def profile_backbones():
     from utscls.visioncls import ViT_MODELS, DINOv2Backbone
     from utscls import models_vit, models_mae
@@ -96,19 +77,16 @@ def profile_backbones():
             n_par = sum(p.numel() for p in m.parameters())
             for B in (8, 32):
                 x = torch.randn(B, 3, 224, 224, device=DEV)
-                # forward-only peak
                 cuda_reset()
                 with torch.no_grad():
                     for _ in range(2): _ = m.forward_features(x)
                 torch.cuda.synchronize()
                 fwd_peak = torch.cuda.max_memory_allocated()
-                # latency
                 torch.cuda.synchronize(); t0 = time.perf_counter()
                 with torch.no_grad():
                     for _ in range(5): _ = m.forward_features(x)
                 torch.cuda.synchronize()
                 lat = (time.perf_counter() - t0) / (5 * B)
-                # forward+backward peak
                 cuda_reset()
                 out = m.forward_features(x)
                 loss = out.float().pow(2).mean()
@@ -125,7 +103,6 @@ def profile_backbones():
         except Exception as e:
             rows.append(dict(stage="backbone", model=name, error=f"{type(e).__name__}: {e}"))
     return rows
-
 
 if __name__ == "__main__":
     torch.manual_seed(0)

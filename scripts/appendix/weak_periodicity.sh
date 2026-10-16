@@ -1,8 +1,5 @@
-# Appendix "Evaluation of LVMs on Datasets with Weak Periodicity": MAE (UVH) vs. PatchTST on Exchange and Solar.
-# Prepare Solar first:  python tools/prepare_solar.py --src ./dataset/solar/solar_AL.txt --dst ./dataset/solar/solar.csv
 source scripts/appendix/common.sh
 
-# name|root_path|data_path|periodicity|n_variates|MAE batch size
 for row in "Exchange|./dataset/exchange_rate/|exchange_rate.csv|30|8|64" "Solar|./dataset/solar/|solar.csv|24|137|4"; do
   IFS='|' read -r name root file period nvars bs <<< "$row"
   for pl in 96 192 336 720; do

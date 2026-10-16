@@ -143,8 +143,6 @@ ViT_MODELS = {
     'simmim': [build_simmim, "simmim_pretrain__swin_base__img192_window6__800ep.pth"],
 }
 
-# Pretrained weights are downloaded into --ckpt on first use.
-# SimMIM weights must be downloaded manually from https://github.com/microsoft/SimMIM
 DOWNLOAD_URL = {
     "mae_pretrain_vit_base.pth": "https://dl.fbaipublicfiles.com/mae/pretrain/",
     "mae_pretrain_vit_large.pth": "https://dl.fbaipublicfiles.com/mae/pretrain/",

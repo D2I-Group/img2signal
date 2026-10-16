@@ -1,4 +1,3 @@
-# Appendix "Token Selection for the Classification Head": all tokens (default) vs. CLS token vs. mean pooling.
 source scripts/appendix/common.sh
 
 for ds in UWaveGestureLibrary Handwriting; do

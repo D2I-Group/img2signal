@@ -1,9 +1,3 @@
-# Appendix "Evaluation about Normalization Methods" (MAE + UVH forecasting).
-#   none          : --dataset_norm 0 --norm_mode dataset
-#   dataset only  : --dataset_norm 1 --norm_mode dataset
-#   instance only : --dataset_norm 0 --norm_mode instance
-#   both (default): --dataset_norm 1 --norm_mode instance
-# Metrics are always reported in the train-standardized space.
 source scripts/appendix/common.sh
 
 for row in "${TSF_DATASETS[@]}"; do

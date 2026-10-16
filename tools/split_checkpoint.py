@@ -1,13 +1,3 @@
-"""Build the encoder-only / decoder-only checkpoints used in RQ8 (`--sep_enc_dec enc|dec`).
-
-    python tools/split_checkpoint.py --ckpt_dir ./ckpt
-
-Reads the pretrained MAE and SimMIM checkpoints from --ckpt_dir and writes:
-    mae_visualize_vit_base_wo_decoder.pth   (MAE encoder only)
-    mae_visualize_vit_base_wo_encoder.pth   (MAE decoder, with cls/mask tokens and positional embeddings)
-    simmim_wo_decoder.pth                   (SimMIM encoder only)
-    simmim_wo_encoder.pth                   (SimMIM decoder, with encoder.mask_token)
-"""
 import argparse
 import os
 
@@ -16,13 +6,11 @@ import torch
 MAE_DECODER = ('decoder_blocks.', 'decoder_embed.', 'decoder_norm.', 'decoder_pred.')
 MAE_ENCODER = ('blocks.', 'norm.', 'patch_embed.')
 
-
 def split(src, dst, drop):
     ckpt = torch.load(src, map_location='cpu', weights_only=False)
     ckpt['model'] = {k: v for k, v in ckpt['model'].items() if not drop(k)}
     torch.save(ckpt, dst)
     print(f'{dst}: kept {len(ckpt["model"])} tensors')
-
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()

@@ -1,16 +1,9 @@
 #!/usr/bin/env python3
-"""Horizon-wise two-sided Wilcoxon signed-rank tests (paper Table: app.tab.horizon).
-
-Uses the per-horizon MSE/MAE of Table 15 (full TSF results) across the eight datasets.
-
-    python tools/wilcoxon_per_horizon.py
-"""
 import itertools, statistics
 from scipy.stats import wilcoxon
 
 METHODS = ["MAE","ViT","Time-LLM","GPT4TS","CALF","Dlinear","PatchTST","TimesNet","FEDformer","Autoformer"]
 
-# dataset -> list of 4 rows (one per horizon), each row = 20 values (mse,mae per method)
 T15 = {
 "ETTh1": [
  [0.356,0.383, 0.398,0.401, 0.376,0.402, 0.370,0.389, 0.370,0.393, 0.375,0.399, 0.370,0.399, 0.384,0.402, 0.376,0.419, 0.449,0.459],

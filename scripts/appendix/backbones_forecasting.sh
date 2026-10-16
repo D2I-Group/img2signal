@@ -1,4 +1,3 @@
-# Appendix "Comparison with SOTA LVMs" (forecasting): encoder + linear head (UTSRegression).
 source scripts/appendix/common.sh
 
 for row in "${TSF_DATASETS[@]}"; do

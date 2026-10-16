@@ -1,10 +1,3 @@
-"""Convert Solar-AL (solar_AL.txt from LSTNet) into a CSV readable by `--data custom`.
-
-    python tools/prepare_solar.py --src ./dataset/solar/solar_AL.txt --dst ./dataset/solar/solar.csv
-
-Solar-AL has no timestamps; it is 10-minute data for 2006, so a synthetic `date` column is added.
-The last column is renamed to `OT`, the default target of the custom loader.
-"""
 import argparse
 
 import pandas as pd

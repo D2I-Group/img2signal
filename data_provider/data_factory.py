@@ -93,11 +93,7 @@ def data_provider(args, flag):
             freq=freq,
             seasonal_patterns=args.seasonal_patterns
         )
-        # raw-input runs (--dataset_norm 0) also return the variate index so that
-        # loss and metrics can be computed in the train-standardized space
         data_set.return_channel = not bool(getattr(args, 'dataset_norm', 1))
-        # MVH forecasting: one fixed variate permutation for input and target,
-        # identical across splits; seed 0 keeps the native ordering
         perm_seed = int(getattr(args, 'variate_perm', 0))
         if getattr(args, 'model', None) == 'MVH_RQ3' and perm_seed:
             permutation = np.random.RandomState(perm_seed).permutation(data_set.data_x.shape[1])

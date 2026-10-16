@@ -1,4 +1,3 @@
-# Appendix "Additional Fine-Tuning Results": LoRA (rank 8, alpha 16) on ViT (TSC) and MAE (TSF).
 source scripts/appendix/common.sh
 
 for ds in $TSC_DATASETS; do

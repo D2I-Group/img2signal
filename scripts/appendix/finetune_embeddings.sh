@@ -1,4 +1,3 @@
-# Appendix "Additional Fine-Tuning Results": fine-tune only the positional encoding or the patch embedding.
 source scripts/appendix/common.sh
 
 for ft in pos_embed patch_embed; do
