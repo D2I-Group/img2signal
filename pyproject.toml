@@ -26,6 +26,7 @@ dependencies = [
     "requests",
     "gdown",
     "patool",
+    "psutil",
 ]
 
 [tool.uv]

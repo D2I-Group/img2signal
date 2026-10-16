@@ -47,6 +47,8 @@ class MiMreg(nn.Module):
                     param.requires_grad = '.mlp.' in n
                 elif 'attn' in finetune_type:
                     param.requires_grad = '.attn.' in n
+                else:
+                    raise ValueError(f'unknown --ft_type {finetune_type}')
 
         self.image_size = self.vision_model.encoder.patch_embed.img_size[0] # 192
         self.patch_size = self.vision_model.encoder.patch_embed.patch_size[0] # 4

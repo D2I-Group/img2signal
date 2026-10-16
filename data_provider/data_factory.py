@@ -3,6 +3,7 @@ from data_provider.data_loader import Dataset_ETT_hour, Dataset_ETT_minute, Data
 from data_provider.uea import collate_fn
 from torch.utils.data import DataLoader
 from time2img.imagedata import ImageTimeSeries, ImageTimeSeriesForecasting
+import numpy as np
 
 data_dict = {
     'ETTh1': Dataset_ETT_hour,
@@ -87,10 +88,21 @@ def data_provider(args, flag):
             size=[args.seq_len, args.label_len, args.pred_len],
             features=args.features,
             target=args.target,
+            scale=bool(getattr(args, 'dataset_norm', 1)),
             timeenc=timeenc,
             freq=freq,
             seasonal_patterns=args.seasonal_patterns
         )
+        # raw-input runs (--dataset_norm 0) also return the variate index so that
+        # loss and metrics can be computed in the train-standardized space
+        data_set.return_channel = not bool(getattr(args, 'dataset_norm', 1))
+        # MVH forecasting: one fixed variate permutation for input and target,
+        # identical across splits; seed 0 keeps the native ordering
+        perm_seed = int(getattr(args, 'variate_perm', 0))
+        if getattr(args, 'model', None) == 'MVH_RQ3' and perm_seed:
+            permutation = np.random.RandomState(perm_seed).permutation(data_set.data_x.shape[1])
+            data_set.data_x = data_set.data_x[:, permutation]
+            data_set.data_y = data_set.data_y[:, permutation]
         print(flag, len(data_set))
 
         if args.time2img:

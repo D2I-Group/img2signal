@@ -128,7 +128,23 @@ Edit `CUDA_VISIBLE_DEVICES` at the top of each script to choose a GPU.
 
 > Script folders keep the numbering of an earlier draft; the table maps them to the RQs in the published paper.
 
-Options used in the appendix: `--backbone dinov2|mlcd|qwenvl|sam`, `--ft_type lora`, `--head_tokens all|cls|mean`, `--norm_mode instance|dataset`, and `--variate_perm <seed>` (MVH variate permutation).
+#### Appendix experiments
+
+Run from the repository root, e.g. `GPU=0 bash scripts/appendix/lora.sh`.
+
+| Appendix section | Script / tool |
+|---|---|
+| Wilcoxon signed-rank tests per horizon | `python tools/wilcoxon_per_horizon.py` |
+| Computational cost (RQ7) | `python tools/profile_cost.py`, `python tools/imaging_memory.py` |
+| Token selection for the classification head | `scripts/appendix/head_tokens.sh` |
+| Datasets with weak periodicity (Exchange, Solar) | `scripts/appendix/weak_periodicity.sh` (Solar: run `tools/prepare_solar.py` first) |
+| Comparison with SOTA LVMs (DINOv2, MLCD, Qwen2-VL, SAM) | `scripts/appendix/backbones_classification.sh`, `backbones_forecasting.sh` |
+| Additional fine-tuning (LoRA, positional encoding, patch embedding) | `scripts/appendix/lora.sh`, `finetune_embeddings.sh` |
+| Robustness of MVH to variate permutation | `scripts/appendix/mvh_permutation.sh` |
+| Normalization methods | `scripts/appendix/normalization.sh` |
+
+Not included in this release: the Line Plot imaging method (`time2img/lineplot.py` only renders figures) and the LaVin-DiT backbone.
+
 
 <a id="findings"></a>
 ## 📊 Findings

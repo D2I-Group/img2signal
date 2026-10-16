@@ -79,7 +79,7 @@ CUDA_VISIBLE_DEVICES=5 python -u run.py \
   --time2img GAF \
   --backbone vit_base \
   --resize default \
-  --ft_type zero_shot \
+  --ft_type zero-shot \
   --patience 15
 
 

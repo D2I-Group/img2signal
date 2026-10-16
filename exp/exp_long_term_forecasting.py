@@ -42,11 +42,30 @@ class Exp_Long_Term_Forecast(Exp_Basic):
         criterion = nn.MSELoss()
         return criterion
 
+    def _metric_space(self, value, data_set, channel_index=None):
+        """Keep loss and reported metrics in the paper's train-standardized space."""
+        if bool(getattr(self.args, 'dataset_norm', 1)):
+            return value
+        all_mean = torch.as_tensor(data_set.scaler.mean_, device=value.device, dtype=value.dtype)
+        all_scale = torch.as_tensor(data_set.scaler.scale_, device=value.device, dtype=value.dtype)
+        if channel_index is None:
+            if value.shape[-1] != all_mean.numel():
+                raise RuntimeError('raw-input metric conversion requires a variate index')
+            mean = all_mean.reshape(1, 1, -1)
+            scale = all_scale.reshape(1, 1, -1)
+        else:
+            idx = channel_index.to(device=value.device, dtype=torch.long)
+            mean = all_mean[idx].reshape(-1, 1, 1)
+            scale = all_scale[idx].reshape(-1, 1, 1)
+        return (value - mean) / scale
+
     def vali(self, vali_data, vali_loader, criterion):
         total_loss = []
         self.model.eval()
         with torch.no_grad():
-            for i, (batch_x, batch_y, batch_x_mark, batch_y_mark) in enumerate(tqdm(vali_loader, desc='vali')):
+            for i, batch in enumerate(tqdm(vali_loader, desc='vali')):
+                batch_x, batch_y, batch_x_mark, batch_y_mark = batch[:4]
+                channel_index = batch[4] if len(batch) == 5 else None
                 batch_x = batch_x.float().to(self.device)
                 batch_y = batch_y.float()
 
@@ -73,6 +92,8 @@ class Exp_Long_Term_Forecast(Exp_Basic):
                 outputs = outputs[:, -self.args.pred_len:, f_dim:]
                 batch_y = batch_y[:, -self.args.pred_len:, f_dim:].to(self.device)
 
+                outputs = self._metric_space(outputs, vali_data, channel_index)
+                batch_y = self._metric_space(batch_y, vali_data, channel_index)
                 pred = outputs.detach().cpu()
                 true = batch_y.detach().cpu()
 
@@ -116,7 +137,9 @@ class Exp_Long_Term_Forecast(Exp_Basic):
             self.model.train()
             epoch_time = time.time()
             pbar = tqdm(train_loader)
-            for i, (batch_x, batch_y, batch_x_mark, batch_y_mark) in enumerate(pbar):
+            for i, batch in enumerate(pbar):
+                batch_x, batch_y, batch_x_mark, batch_y_mark = batch[:4]
+                channel_index = batch[4] if len(batch) == 5 else None
                 iter_count += 1
                 model_optim.zero_grad()
                 batch_x = batch_x.float().to(self.device)
@@ -139,7 +162,8 @@ class Exp_Long_Term_Forecast(Exp_Basic):
                         f_dim = -1 if self.args.features == 'MS' else 0
                         outputs = outputs[:, -self.args.pred_len:, f_dim:]
                         batch_y = batch_y[:, -self.args.pred_len:, f_dim:].to(self.device)
-                        loss = criterion(outputs, batch_y)
+                        loss = criterion(self._metric_space(outputs, train_data, channel_index),
+                                         self._metric_space(batch_y, train_data, channel_index))
                         train_loss.append(loss.item())
                 else:
                     if self.args.output_attention:
@@ -150,7 +174,8 @@ class Exp_Long_Term_Forecast(Exp_Basic):
                     f_dim = -1 if self.args.features == 'MS' else 0
                     outputs = outputs[:, -self.args.pred_len:, f_dim:]
                     batch_y = batch_y[:, -self.args.pred_len:, f_dim:].to(self.device)
-                    loss = criterion(outputs, batch_y)
+                    loss = criterion(self._metric_space(outputs, train_data, channel_index),
+                                     self._metric_space(batch_y, train_data, channel_index))
                     train_loss.append(loss.item())
 
                 pbar.set_description("epoch: {0} | loss: {1:.7f}".format(epoch + 1, loss.item()))
@@ -224,7 +249,9 @@ class Exp_Long_Term_Forecast(Exp_Basic):
         self.model.eval()
         time_init = time.time()
         with torch.no_grad():
-            for i, (batch_x, batch_y, batch_x_mark, batch_y_mark) in enumerate(tqdm(test_loader, desc='test')):
+            for i, batch in enumerate(tqdm(test_loader, desc='test')):
+                batch_x, batch_y, batch_x_mark, batch_y_mark = batch[:4]
+                channel_index = batch[4] if len(batch) == 5 else None
                 batch_x = batch_x.float().to(self.device)
                 batch_y = batch_y.float().to(self.device)
 
@@ -251,6 +278,8 @@ class Exp_Long_Term_Forecast(Exp_Basic):
                 f_dim = -1 if self.args.features == 'MS' else 0
                 outputs = outputs[:, -self.args.pred_len:, :]
                 batch_y = batch_y[:, -self.args.pred_len:, :].to(self.device)
+                outputs = self._metric_space(outputs, test_data, channel_index)
+                batch_y = self._metric_space(batch_y, test_data, channel_index)
                 outputs = outputs.detach().cpu().numpy()
                 batch_y = batch_y.detach().cpu().numpy()
                 if test_data.scale and self.args.inverse:

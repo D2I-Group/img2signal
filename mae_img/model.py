@@ -91,6 +91,8 @@ class IMG_MAE(nn.Module):
                     param.requires_grad = '.mlp.' in n
                 elif 'attn' in finetune_type:
                     param.requires_grad = '.attn.' in n
+                else:
+                    raise ValueError(f'unknown --ft_type {finetune_type}')
 
         self.interpolation = {
             "bilinear": Image.BILINEAR,

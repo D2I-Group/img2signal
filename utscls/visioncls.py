@@ -246,6 +246,8 @@ class UTSClassification(nn.Module):
                     param.requires_grad = (('pos_embed' in n) or ('patch_embed' in n)) and ('decoder' not in n)
                 elif 'zero-shot' == finetune_type:
                     param.requires_grad = False
+                else:
+                    raise ValueError(f'unknown --ft_type {finetune_type}')
 
     def _vm_forward(self, x):
         # x of size (B, C, H, W)

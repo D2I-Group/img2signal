@@ -61,9 +61,9 @@ class Dataset_ETT_hour(Dataset):
         elif self.features == 'S':
             df_data = df_raw[[self.target]]
 
+        train_data = df_data[border1s[0]:border2s[0]]
+        self.scaler.fit(train_data.values)
         if self.scale:
-            train_data = df_data[border1s[0]:border2s[0]]
-            self.scaler.fit(train_data.values)
             data = self.scaler.transform(df_data.values)
         else:
             data = df_data.values
@@ -149,9 +149,9 @@ class Dataset_ETT_minute(Dataset):
         elif self.features == 'S':
             df_data = df_raw[[self.target]]
 
+        train_data = df_data[border1s[0]:border2s[0]]
+        self.scaler.fit(train_data.values)
         if self.scale:
-            train_data = df_data[border1s[0]:border2s[0]]
-            self.scaler.fit(train_data.values)
             data = self.scaler.transform(df_data.values)
         else:
             data = df_data.values
@@ -249,9 +249,9 @@ class Dataset_Custom(Dataset):
         elif self.features == 'S':
             df_data = df_raw[[self.target]]
 
+        train_data = df_data[border1s[0]:border2s[0]]
+        self.scaler.fit(train_data.values)
         if self.scale:
-            train_data = df_data[border1s[0]:border2s[0]]
-            self.scaler.fit(train_data.values)
             data = self.scaler.transform(df_data.values)
         else:
             data = df_data.values
@@ -287,6 +287,8 @@ class Dataset_Custom(Dataset):
 
         seq_x_mark = self.data_stamp[s_begin:s_end]
         seq_y_mark = self.data_stamp[r_begin:r_end]
+        if getattr(self, 'return_channel', False):
+            return seq_x, seq_y, seq_x_mark, seq_y_mark, channel_index
         return seq_x, seq_y, seq_x_mark, seq_y_mark
 
     def __len__(self):

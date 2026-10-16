@@ -156,6 +156,8 @@ if __name__ == '__main__':
     parser.add_argument('--variate_perm', type=int, default=0, help='seed for permuting variates in MVH images, 0 = native order')
 
     parser.add_argument('--norm_mode', type=str, default='instance', help='normalization for MAE forecasting: instance | dataset')
+    parser.add_argument('--dataset_norm', type=int, default=1,
+                        help='1: standardize model input with the train-split scaler; 0: feed raw values (metrics stay in the standardized space)')
 
     parser.add_argument('--lora_r', type=int, default=8, help='LoRA rank')
     parser.add_argument('--lora_alpha', type=int, default=16, help='LoRA alpha')

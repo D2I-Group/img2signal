@@ -100,6 +100,8 @@ class VisionTS(nn.Module):
                     param.requires_grad = False
                 elif 'lora' == finetune_type:
                     param.requires_grad = False
+                else:
+                    raise ValueError(f'unknown --ft_type {finetune_type}')
                     
         if finetune_type == 'lora':
             nwrapped = _inject_lora_tsf(self.vision_model)
