@@ -1,0 +1,34 @@
+CUDA_VISIBLE_DEVICES=2 python -u run.py \
+  --task_name classification \
+  --is_training 1 \
+  --root_path ./dataset/Handwriting/ \
+  --model_id Handwriting \
+  --model Linear_Cls_RQ5 \
+  --data UEA \
+  --batch_size 32 \
+  --lradj fixed \
+  --learning_rate 0.00001 \
+  --lradj fixed \
+  --train_epochs 100 \
+  --time2img GAF \
+  --resize default \
+  --ft_type full \
+  --patience 15 
+
+
+CUDA_VISIBLE_DEVICES=2 python -u run.py \
+  --task_name classification \
+  --is_training 1 \
+  --root_path ./dataset/Handwriting/ \
+  --model_id Handwriting \
+  --model Attn_Cls_RQ5 \
+  --data UEA \
+  --batch_size 32 \
+  --lradj fixed \
+  --learning_rate 0.00001 \
+  --lradj fixed \
+  --train_epochs 100 \
+  --time2img GAF \
+  --resize default \
+  --ft_type full \
+  --patience 15 

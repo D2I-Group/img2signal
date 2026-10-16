@@ -55,8 +55,6 @@ The study is organized around ten research questions (RQs) in three groups:
 <a id="quick-start"></a>
 ## 🚀 Quick Start
 
-<!-- TODO: fill in once the code is uploaded (environment, data, and run commands). -->
-
 ### 1. Environment
 
 ```bash
@@ -65,16 +63,67 @@ cd img2signal
 pip install -r requirements.txt
 ```
 
+Experiments in the paper used PyTorch 2.6.0 and CUDA 12.4 on NVIDIA RTX 6000 Ada GPUs.
+
 ### 2. Data
 
-- **Classification:** the 10 UEA multivariate datasets used in the paper.
-- **Forecasting:** ETTh1, ETTh2, ETTm1, ETTm2, Weather, Illness, Traffic, and Electricity.
+Download the datasets from [Time-Series-Library](https://github.com/thuml/Time-Series-Library) and place them under `./dataset/`:
 
-### 3. Run
+```
+dataset/
+├── ETT-small/            # ETTh1.csv, ETTh2.csv, ETTm1.csv, ETTm2.csv
+├── weather/  illness/  traffic/  electricity/
+└── EthanolConcentration/ FaceDetection/ Handwriting/ Heartbeat/ JapaneseVowels/
+    PEMS-SF/ SelfRegulationSCP1/ SelfRegulationSCP2/ SpokenArabicDigits/ UWaveGestureLibrary/   # UEA (.ts)
+```
+
+### 3. Pretrained checkpoints
+
+Put the checkpoints under `./ckpt/`:
+
+| Backbone | File | Source |
+|---|---|---|
+| `vit_base` | `mae_pretrain_vit_base.pth` | [MAE](https://github.com/facebookresearch/mae), downloaded automatically |
+| `mae_base` | `mae_visualize_vit_base.pth` | [MAE](https://github.com/facebookresearch/mae), downloaded automatically |
+| `simmim` | `simmim_pretrain__swin_base__img192_window6__800ep.pth` | [SimMIM](https://github.com/microsoft/SimMIM), download manually |
+| `swin_tiny` | – | torchvision, downloaded automatically |
+| `dinov2`, `mlcd`, `qwenvl`, `sam` (Appendix) | – | timm / Hugging Face, downloaded automatically |
+
+For the encoder/decoder ablation (RQ8), create the split checkpoints once:
 
 ```bash
-# Coming soon
+python tools/split_checkpoint.py --ckpt_dir ./ckpt
 ```
+
+### 4. Run
+
+All experiments go through `run.py`. For example:
+
+```bash
+# Classification: ViT with GAF imaging
+bash scripts/classification/UWaveGestureLibrary.sh
+
+# Forecasting: MAE with UVH imaging
+bash scripts/forecasting/ETTh1_mae.sh
+```
+
+Edit `CUDA_VISIBLE_DEVICES` at the top of each script to choose a GPU.
+
+| Paper | Classification scripts | Forecasting scripts |
+|---|---|---|
+| RQ1–RQ3 (LVMs, imaging, SOTA) | `scripts/classification/*.sh`, `mae/`, `simmim/` | `scripts/forecasting/*.sh`, `swin/`, `RQ3/` (imaging methods) |
+| RQ4 (fine-tuning) | `RQ4/` | `RQ4/` |
+| RQ5 (architecture) | `RQ5/` | `RQ5/` |
+| RQ6 (temporal perturbation) | `RQ6/` | `RQ6/` |
+| RQ7 (cost) | `RQ10/` | `RQ10/` |
+| RQ8 (encoder vs. decoder) | – | `RQ7/` |
+| RQ9 (UVH segment length) | – | `RQ8/` |
+| RQ10 (look-back window) | – | `RQ9/` |
+| Baselines | `scripts/baselines/` | `scripts/baselines/` |
+
+> Script folders keep the numbering of an earlier draft; the table maps them to the RQs in the published paper.
+
+Options used in the appendix: `--backbone dinov2|mlcd|qwenvl|sam`, `--ft_type lora`, `--head_tokens all|cls|mean`, `--norm_mode instance|dataset`, and `--variate_perm <seed>` (MVH variate permutation).
 
 <a id="findings"></a>
 ## 📊 Findings

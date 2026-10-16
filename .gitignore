@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+dataset/
+ckpt/
+checkpoints/
+save/
+results/
+test_results/
+logs/
+*.log
+*.pth
+*.pt
+*.ckpt
+*.npy
