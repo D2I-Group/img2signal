@@ -246,10 +246,6 @@ If you find this work useful, please consider citing:
 }
 ```
 
-## 🙏 Acknowledgments
-
-This work was supported in part by the NVIDIA Academic Grant Program. We thank Dr. Eamonn Keogh for his insightful comments on the experimental design.
-
 ## 📚 Related Work from D2I Group
 
 - [Awesome Vision for Time Series](https://github.com/D2I-Group/awesome-vision-time-series): Harnessing Vision Models for Time Series Analysis: A Survey (IJCAI 2025)
