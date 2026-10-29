@@ -3,6 +3,8 @@
 # (TMLR 2026) From Images to Signals: Are Image-Pretrained Vision Models Useful for Time Series Analysis?
 
 [![TMLR](https://img.shields.io/badge/TMLR-2026-1f5fbf.svg)](https://openreview.net/forum?id=aWVG2rN4OV)
+[![Featured Certification](https://img.shields.io/badge/TMLR-Featured_Certification-c8102e.svg)](https://openreview.net/forum?id=aWVG2rN4OV)
+[![Project Page](https://img.shields.io/badge/Project-Page-191a1b.svg)](https://d2i-group.github.io/img2signal/)
 [![OpenReview](https://img.shields.io/badge/OpenReview-aWVG2rN4OV-8c1b13.svg)](https://openreview.net/forum?id=aWVG2rN4OV)
 ![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-green)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE)
@@ -19,7 +21,7 @@
 <a id="about"></a>
 ## 🔍 About
 
-This is the official repository for the TMLR 2026 paper "[From Images to Signals: Are Image-Pretrained Vision Models Useful for Time Series Analysis?](https://openreview.net/forum?id=aWVG2rN4OV)".
+This is the official repository for the TMLR 2026 paper "[From Images to Signals: Are Image-Pretrained Vision Models Useful for Time Series Analysis?](https://openreview.net/forum?id=aWVG2rN4OV)", which received a **TMLR Featured Certification**. The project page is at [d2i-group.github.io/img2signal](https://d2i-group.github.io/img2signal/).
 
 Image-pretrained large vision models (LVMs) are increasingly used for time series: a series is first *imaged*, then fed into a vision backbone. This work is a benchmark study that asks not only **whether** LVMs work for time series, but also **why** they succeed or fall short, on both a high-level task (classification) and a low-level task (forecasting).
 
@@ -242,7 +244,8 @@ If you find this work useful, please consider citing:
   journal = {Transactions on Machine Learning Research},
   issn    = {2835-8856},
   year    = {2026},
-  url     = {https://openreview.net/forum?id=aWVG2rN4OV}
+  url     = {https://openreview.net/forum?id=aWVG2rN4OV},
+  note    = {Featured Certification}
 }
 ```
 
