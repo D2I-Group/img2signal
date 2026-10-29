@@ -162,6 +162,14 @@
           standalone vision backbones. Vision-language and multimodal foundation models are beyond the
           scope of this work.
         </p>
+        <figure class="inset">
+          <div class="plate">
+            <img src="assets/page/experiments.png" alt="The ten research questions, grouped into three questions: how LVMs perform, whether they are truly useful, and why forecasting poses challenges.">
+          </div>
+          <figcaption data-zh="实验结构概览。“RQ”表示研究问题。">
+            An overview of the structure of the experiments. “RQ” stands for research question.
+          </figcaption>
+        </figure>
         <p data-zh="通过一个覆盖四种代表性 LVM、八种成像方法、18 个数据集与 21 个基线的比较基准，我们识别出基础 LVM 的优势与局限，以及将其适配到时间序列建模的有效策略。简而言之，我们的结论是：<strong>预训练 LVM 在时间序列分类（TSC）这一依赖模式比较的任务上表现出多用途性，但在需要精确数值推断的时间序列预测（TSF）上仍受限制</strong>。当前表现最好的基于 LVM 的预测器虽然有效，但局限于特定类型的 LVM 与成像方法，对时间序列中的周期分量存在偏好，并且难以利用较长的回看窗口。">
           Through a comparative benchmark covering four representative LVMs, eight imaging methods,
           18 datasets, and 21 baselines, we identify the strengths and limitations of the foundational
@@ -173,23 +181,15 @@
           of LVMs and imaging methods, exhibit biases toward forecasting periodic components in time
           series, and struggle with long look-back windows.
         </p>
-        <p data-zh="不同于质疑 Transformer 与大语言模型在这一领域应用的已有工作，我们持谨慎乐观的态度，旨在为针对合适的时间序列任务选择与适配 LVM 提供新的见解与实用的注意事项，以支持未来的发展。实验围绕十个研究问题（RQ）组织，分为三组，如下图所示。">
+        <p data-zh="不同于质疑 Transformer 与大语言模型在这一领域应用的已有工作，我们持谨慎乐观的态度，旨在为针对合适的时间序列任务选择与适配 LVM 提供新的见解与实用的注意事项，以支持未来的发展。实验围绕十个研究问题（RQ）组织，分为三组，见右图。">
           Unlike prior works that question the adoption of Transformers and LLMs in this field, we take a
           cautiously optimistic view, aiming to provide novel insights and practical caveats for
           selecting and adapting LVMs to appropriate time series tasks in order to support future
           developments. The experiments are organised as ten research questions (RQs) in three groups,
-          as shown below.
+          as shown alongside.
         </p>
       </div>
 
-      <figure>
-        <div class="plate">
-          <img src="assets/page/experiments.png" alt="The ten research questions, grouped into three questions: how LVMs perform, whether they are truly useful, and why forecasting poses challenges.">
-        </div>
-        <figcaption data-zh="实验结构概览。“RQ”表示研究问题。">
-          An overview of the structure of the experiments. “RQ” stands for research question.
-        </figcaption>
-      </figure>
     </div>
   </div>
 </section>
@@ -304,17 +304,26 @@
         </p>
       </div>
 
-      <figure>
-        <div class="plate">
-          <img src="assets/page/imaging_ranks.png" alt="Critical difference diagrams ranking the eight imaging methods for classification and forecasting.">
-        </div>
-        <figcaption data-zh="不同成像方法在 (a) TSC 与 (b) TSF 任务中的平均排名，排名越低表示性能越好。">
-          Average ranks of different imaging methods in (a) the TSC task and (b) the TSF task. Lower
-          ranks indicate better performance.
-        </figcaption>
-      </figure>
+      <div class="pair">
+        <figure style="--ar:2.5602">
+          <div class="plate"><img src="assets/page/ranks_tsc.png" alt="Critical difference diagram of the eight imaging methods for classification, with GAF ranked first."></div>
+          <figcaption data-zh="八种成像方法在 TSC 任务中的平均排名，排名越低表示性能越好。">Average ranks of the imaging methods in the TSC task. Lower ranks indicate better performance.</figcaption>
+        </figure>
+        <figure style="--ar:2.7766">
+          <div class="plate"><img src="assets/page/ranks_tsf.png" alt="Critical difference diagram of the eight imaging methods for forecasting, with UVH ranked first."></div>
+          <figcaption data-zh="八种成像方法在 TSF 任务中的平均排名，排名越低表示性能越好。">Average ranks of the imaging methods in the TSF task. Lower ranks indicate better performance.</figcaption>
+        </figure>
+      </div>
 
       <div class="run-in">
+        <figure class="inset">
+          <div class="plate">
+            <img src="assets/page/tsc_models.png" alt="Average classification accuracy of 21 methods, with ViT and MAE highest at 75.3 and 75.1.">
+          </div>
+          <figcaption data-zh="TSC 任务上的模型比较，结果为十个 UEA 数据集上的平均准确率（%）。">
+            Model comparison on the TSC task. The results are average accuracy (%) over ten UEA datasets.
+          </figcaption>
+        </figure>
         <p data-zh="<b>LVM 能否达到 SOTA 性能？</b>这里 ViT 与 MAE 分别被选为表现最好的有监督与自监督 LVM，并配以各自最佳的成像方法——TSC 用 GAF，TSF 用 UVH。在分类上，ViT 与 MAE 都优于各类基线，说明有监督与自监督 LVM 都适用于高层（语义/模式层面）的 TSC 任务。在预测上，横跨八个数据集与两个指标，MAE 在 16 项中的 9 项上优于非 LVM 基线，而 ViT 相对非 LVM 基线并无明显优势，这可能源于其基于分类的预训练。结果显示 LVM 在 TSF 中表现不同，说明低层（数值层面）任务可能带来更大挑战。">
           <b>Can LVMs achieve SOTA performance?</b>
           Here ViT and MAE are selected as the best-performing supervised and self-supervised LVMs, each
@@ -338,14 +347,6 @@
         </p>
       </div>
 
-      <figure>
-        <div class="plate">
-          <img src="assets/page/tsc_models.png" alt="Average classification accuracy of 21 methods, with ViT and MAE highest at 75.3 and 75.1.">
-        </div>
-        <figcaption data-zh="TSC 任务上的模型比较，结果为十个 UEA 数据集上的平均准确率（%）。">
-          Model comparison on the TSC task. The results are average accuracy (%) over ten UEA datasets.
-        </figcaption>
-      </figure>
     </div>
   </div>
 </section>
@@ -503,6 +504,15 @@
           periodic segments. When the segment length does not align with the underlying periods, MAE’s
           forecasting accuracy deteriorates substantially.
         </p>
+        <figure class="inset">
+          <div class="plate">
+            <img src="assets/page/segment.png" alt="Normalized MSE against segment length for four datasets, with the hypothesised n curve in green.">
+          </div>
+          <figcaption data-zh="MAE 在 UVH 成像中采用不同分段长度时的 TSF 性能（MSE 归一化到 [0, 1]）。绿色的“n”估计 TSF 难度。">
+            TSF performance of MAE with respect to the segment length used in UVH imaging, with MSE
+            min-max normalized to [0, 1]. “n” (green) estimates TSF difficulty.
+          </figcaption>
+        </figure>
         <p data-zh="在 UVH 成像框架下，预测难度与一个片段再次出现的频率高度相关，可以用两次连续出现之间间隔的片段数来量化。设 x 具有精确周期 L，并被切分为长度为 (i/k)L 的片段，则片段再次出现前的最小片段数为 n = k / GCD(i, k)，其中 GCD 表示最大公约数。按此计算的 n 形成一条“M”形曲线，它与 ETTh1、ETTm1 上的 MSE 高度吻合，支持了我们对预测难度的估计，说明配合 UVH 成像的 MAE 具有指向周期性的归纳偏置；而 Weather 与 Illness 上的 MSE 与 n 的吻合程度较低，可能是因为它们周期性较弱。在弱周期数据集上，MAE 相对非 LVM 基线并无一致优势，这进一步印证了上述分析，也呼吁 TSF 任务使用更多样化的基准数据集。">
           Under the UVH imaging framework, the forecasting difficulty is highly correlated with how
           frequently a segment reoccurs, which can be quantified by the number of intervening segments
@@ -518,15 +528,6 @@
         </p>
       </div>
 
-      <figure>
-        <div class="plate">
-          <img src="assets/page/segment.png" alt="Normalized MSE against segment length for four datasets, with the hypothesised n curve in green.">
-        </div>
-        <figcaption data-zh="MAE 在 UVH 成像中采用不同分段长度时的 TSF 性能（MSE 归一化到 [0, 1]）。绿色的“n”估计 TSF 难度。">
-          TSF performance of MAE with respect to the segment length used in UVH imaging, with MSE
-          min-max normalized to [0, 1]. “n” (green) estimates TSF difficulty.
-        </figcaption>
-      </figure>
 
       <div class="run-in">
         <p data-zh="<b>LVM 能否有效利用回看窗口？</b>直觉上，更长的回看窗口有助于预测。MAE 的性能随回看窗口增加而提升，直到一定步数（例如 500–1500），之后趋于平稳或下降。这可能源于 (1) 长回看窗口本身的信息量，以及 (2) 图像变换过程：预训练 LVM 处理像素数量有限的固定尺寸图像，可能无法从过长的序列中捕获全部相关信息；而且 UVH 成像并未充分利用图像像素来编码时间步信息。幸运的是，当代 LVM 能有效处理适度长的回看窗口，约一千个时间步的长度对许多应用已经足够。">
