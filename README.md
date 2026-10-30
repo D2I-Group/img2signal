@@ -1,8 +1,8 @@
 <div align="center">
 
-# (TMLR 2026, Featured Certification) From Images to Signals: Are Image-Pretrained Vision Models Useful for Time Series Analysis?
+# (TMLR 2026, Featured Certification)<br>From Images to Signals: Are Image-Pretrained Vision Models Useful for Time Series Analysis?
 
-[![TMLR 2026 | Featured Certification](https://img.shields.io/badge/TMLR_2026-Featured_Certification-c8102e.svg)](https://openreview.net/forum?id=aWVG2rN4OV)
+[![TMLR 2026 · Featured Certification](https://img.shields.io/badge/TMLR_2026-Featured_Certification-c8102e?style=flat)](https://openreview.net/forum?id=aWVG2rN4OV)
 [![OpenReview](https://img.shields.io/badge/OpenReview-aWVG2rN4OV-8c1b13.svg)](https://openreview.net/forum?id=aWVG2rN4OV)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE)
 
