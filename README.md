@@ -1,16 +1,12 @@
 <div align="center">
 
-# (TMLR 2026) From Images to Signals: Are Image-Pretrained Vision Models Useful for Time Series Analysis?
+# (TMLR 2026, Featured Certification) From Images to Signals: Are Image-Pretrained Vision Models Useful for Time Series Analysis?
 
-[![TMLR](https://img.shields.io/badge/TMLR-2026-1f5fbf.svg)](https://openreview.net/forum?id=aWVG2rN4OV)
-[![Featured Certification](https://img.shields.io/badge/TMLR-Featured_Certification-c8102e.svg)](https://openreview.net/forum?id=aWVG2rN4OV)
-[![Project Page](https://img.shields.io/badge/Project-Page-191a1b.svg)](https://d2i-group.github.io/img2signal/)
+[![TMLR 2026 | Featured Certification](https://img.shields.io/badge/TMLR_2026-Featured_Certification-c8102e.svg)](https://openreview.net/forum?id=aWVG2rN4OV)
 [![OpenReview](https://img.shields.io/badge/OpenReview-aWVG2rN4OV-8c1b13.svg)](https://openreview.net/forum?id=aWVG2rN4OV)
-![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-green)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE)
-![Task](https://img.shields.io/badge/Task-Classification_%7C_Forecasting-2ea44f.svg)
 
-**[ChengAo Shen](https://github.com/ChengAoShen)<sup>1</sup>, Hanghang Tong<sup>2</sup>, Dongjin Song<sup>3</sup>, Zhigang Deng<sup>1</sup>, Qingsong Wen<sup>4</sup>, Jingchao Ni<sup>1</sup>**
+**ChengAo Shen<sup>1</sup>, Hanghang Tong<sup>2</sup>, Dongjin Song<sup>3</sup>, Zhigang Deng<sup>1</sup>, Qingsong Wen<sup>4</sup>, Jingchao Ni<sup>1</sup>**
 
 <sup>1</sup>University of Houston &nbsp; <sup>2</sup>University of Illinois Urbana-Champaign &nbsp; <sup>3</sup>University of Connecticut &nbsp; <sup>4</sup>Squirrel Ai Learning
 
