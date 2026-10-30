@@ -1,10 +1,18 @@
 <div align="center">
 
-# (TMLR 2026, Featured Certification)<br>From Images to Signals: Are Image-Pretrained Vision Models Useful for Time Series Analysis?
+# From Images to Signals: Are Image-Pretrained Vision Models Useful for Time Series Analysis?
 
-[![TMLR 2026 · Featured Certification](docs/assets/badge-tmlr-featured.svg)](https://openreview.net/forum?id=aWVG2rN4OV)
-[![OpenReview](https://img.shields.io/badge/OpenReview-aWVG2rN4OV-8c1b13.svg)](https://openreview.net/forum?id=aWVG2rN4OV)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE)
+### (TMLR 2026, Featured Certification)
+
+[![TMLR 2026 · Featured Certification](docs/assets/badges/tmlr-featured.svg)](https://openreview.net/forum?id=aWVG2rN4OV)
+[![OpenReview](docs/assets/badges/openreview.svg)](https://openreview.net/forum?id=aWVG2rN4OV)
+[![Project Page](docs/assets/badges/project.svg)](https://d2i-group.github.io/img2signal/)
+[![Video](docs/assets/badges/video.svg)](https://www.youtube.com/watch?v=Ykoex0ULap8)
+<br>
+![Task: Classification | Forecasting](docs/assets/badges/task.svg)
+![PyTorch 2.6](docs/assets/badges/pytorch.svg)
+![PRs Welcome](docs/assets/badges/prs.svg)
+[![License: MIT](docs/assets/badges/license.svg)](LICENSE)
 
 **ChengAo Shen<sup>1</sup>, Hanghang Tong<sup>2</sup>, Dongjin Song<sup>3</sup>, Zhigang Deng<sup>1</sup>, Qingsong Wen<sup>4</sup>, Jingchao Ni<sup>1</sup>**
 
