@@ -2,7 +2,7 @@
 
 # From Images to Signals: Are Image-Pretrained Vision Models Useful for Time Series Analysis?
 
-### TMLR 2026, Featured Certification
+### TMLR 2026 (🏆 Featured Certification)
 
 [![TMLR 2026 · Featured Certification](docs/assets/badges/tmlr-featured.svg)](https://openreview.net/forum?id=aWVG2rN4OV)
 [![OpenReview](docs/assets/badges/openreview.svg)](https://openreview.net/forum?id=aWVG2rN4OV)
