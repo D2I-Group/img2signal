@@ -14,7 +14,7 @@
 ![PRs Welcome](docs/assets/badges/prs.svg)
 [![License: MIT](docs/assets/badges/license.svg)](LICENSE)
 
-**ChengAo Shen<sup>1</sup>, Hanghang Tong<sup>2</sup>, Dongjin Song<sup>3</sup>, Zhigang Deng<sup>1</sup>, Qingsong Wen<sup>4</sup>, Jingchao Ni<sup>1</sup>**
+**[ChengAo Shen](https://chengaoshen.com/)<sup>1</sup>, [Hanghang Tong](http://tonghanghang.org/)<sup>2</sup>, [Dongjin Song](https://songdj.github.io/)<sup>3</sup>, [Zhigang Deng](https://graphics.cs.uh.edu/zdeng/)<sup>1</sup>, [Qingsong Wen](https://sites.google.com/site/qingsongwen8/)<sup>4</sup>, [Jingchao Ni](https://nijingchao.github.io/)<sup>1</sup>**
 
 <sup>1</sup>University of Houston &nbsp; <sup>2</sup>University of Illinois Urbana-Champaign &nbsp; <sup>3</sup>University of Connecticut &nbsp; <sup>4</sup>Squirrel Ai Learning
 
